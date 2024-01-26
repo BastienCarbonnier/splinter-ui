@@ -2,10 +2,10 @@ version: "3"
 
 services:
   splinter-ui:
-    image: bastiencarbonnier/splinter-ui:0.0.2
+    image: bastiencarbonnier/splinter-ui:latest
     ports:
       - "3000:3000"
   splinter-api:
-    image: bastiencarbonnier/splinter-api:0.0.1
+    image: bastiencarbonnier/splinter-api:latest
     ports:
       - "8080:8080"
