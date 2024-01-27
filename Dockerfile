@@ -11,7 +11,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED 1
-
+COPY .env.production .env.production
 RUN yarn build
 
 FROM node:20.11.0-alpine3.18 AS runner
