@@ -1,11 +1,23 @@
+"use client"
 import styles from './page.module.css'
-import Link from 'next/link'
+
+import { Provider } from 'react-redux';
+import FileUploader from './components/file/file-uploader';
+import { store } from './store';
+
+import Container from '@mui/material/Container';
 
 export default function Home() {
   return (
+    <Provider store={store}>
       <main className={styles.main}>
-        Main page
-        <Link href="/dashboard">Dashboard</Link>
+        <Container>
+          <main>
+            <h1>Splinter</h1>
+            <FileUploader />
+          </main>
+        </Container>
       </main>
+    </Provider>
   )
 }
