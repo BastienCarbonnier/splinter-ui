@@ -1,8 +1,9 @@
-import { Avatar, Box, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
+import { Avatar, Box, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useAppDispatch } from '@/app/hooks';
-import { remove } from '@/app/store/files-reducer';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { deleteFile, selectFiles } from '@/app/store/files-reducer';
+import { init } from '@/app/store/merged-file-reducer';
 
 interface Props {
   files: IJsonFile[]
@@ -10,9 +11,13 @@ interface Props {
 
 function FileListDisplay({ files=[] }: Props): JSX.Element {
   const dispatch = useAppDispatch();
+  const filesState = useAppSelector(selectFiles);
 
   const handleDelete = (id: string) => {
-    dispatch(remove(id));
+    dispatch(deleteFile(id));
+    if (filesState.files.length <= 2) {
+      dispatch(init());
+    }
   }
 
   return (

@@ -28,29 +28,32 @@ function FileInput({ }: Props): JSX.Element {
       files: FileList;
     }
 
-    const fileReader = new FileReader();
     const { files } = target;
 
-    fileReader.onload = function (event) {
-      const jsonText = fileReader.result;
+    Array.from(files).forEach(file => {
+      const fileReader = new FileReader();
 
-      if (jsonText) {
-        const jsonFile: IJsonFile = {
-          id: uuidv4(),
-          name: files[0].name,
-          json: JSON.parse(jsonText.toString())
-        };
-        dispatch(add(jsonFile))
-      }
-    };
+      fileReader.onload = function () {
+        const jsonText = fileReader.result;
+        const fileName = files[0].name;
+        if (jsonText) {
+          const jsonFile: IJsonFile = {
+            id: uuidv4(),
+            name: file.name,
+            json: JSON.parse(jsonText.toString())
+          };
+          dispatch(add(jsonFile))
+        }
+      };
 
-    fileReader.readAsText(files[0], "UTF-8");
+      fileReader.readAsText(file, "UTF-8");
+    });
   }
   return (
     <div>
       <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
         Upload file
-        <VisuallyHiddenInput type="file" id="jsonFile" name="jsonFile" onChange={handleOnChange} accept="application/json" />
+        <VisuallyHiddenInput type="file" id="jsonFile" name="jsonFile" onChange={handleOnChange} accept="application/json" multiple />
       </Button>
     </div>
   )

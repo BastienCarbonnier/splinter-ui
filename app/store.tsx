@@ -1,11 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import fileReducer from './store/file-reducer';
+import mergedFileReducer from './store/merged-file-reducer';
 import filesReducer from './store/files-reducer';
 
 export const store = configureStore({
   reducer: {
     files: filesReducer,
-    file: fileReducer
+    mergedFile: mergedFileReducer
   },
 });
 
