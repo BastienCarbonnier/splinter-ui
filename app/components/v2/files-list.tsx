@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Grid, IconButton, List, ListItem, ListItemAvatar, 
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { deleteFile, selectFiles, updateAllFiles } from '@/app/store/files-reducer';
+import { deleteFile, selectFiles, setUpdatedFiles, updateAllFiles } from '@/app/store/files-reducer';
 import { clearMergedFile, selectMergedFile, setMergedFile } from '@/app/store/merged-file-reducer';
 import { mergeFilesAndRemoveCommonKeys } from '@/app/services/splinter-api';
 
@@ -24,7 +24,7 @@ function FilesList({ }: Props): JSX.Element {
       const res = await mergeFilesAndRemoveCommonKeys(filesState.files)
       console.log(res)
       dispatch(setMergedFile(res.data.mergedFile))
-      dispatch(updateAllFiles(res.data.files))
+      dispatch(setUpdatedFiles(res.data.files))
     } catch (err) {
       console.log(err);
     }
@@ -38,8 +38,6 @@ function FilesList({ }: Props): JSX.Element {
 
   return (
     <>
-    { !mergedFileState.mergedFile &&
-      <>
     <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
@@ -71,8 +69,6 @@ function FilesList({ }: Props): JSX.Element {
       </Grid>
     </Box>
       { filesState.files.length > 1 && renderMergeButton() }
-    </>
-    }
     </>
   )
 }

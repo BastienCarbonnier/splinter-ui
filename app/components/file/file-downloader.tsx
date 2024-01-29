@@ -23,7 +23,7 @@ function FileDownloader({ file }: Props): JSX.Element {
   return (
     <>
       <Grid container spacing={2} marginBottom='3rem'>
-        <Grid item xs={6}>
+        <Grid item>
           <Input value={downloadFileName} onChange={(event) => setDownloadFileName(event.target.value)} />{fileExtension}
         </Grid>
         <Grid item xs={6}>

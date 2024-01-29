@@ -1,7 +1,7 @@
 import { Avatar, Box, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { selectFiles } from '@/app/store/files-reducer';
+import { useAppSelector } from '@/app/hooks';
+import { selectUpdatedFiles } from '@/app/store/files-reducer';
 
 
 import DownloadIcon from '@mui/icons-material/Download';
@@ -12,8 +12,7 @@ interface Props {
 }
 
 function FilesUpdatedList({ }: Props): JSX.Element {
-  const dispatch = useAppDispatch();
-  const filesState = useAppSelector(selectFiles);
+  const filesState = useAppSelector(selectUpdatedFiles);
 
   const mergedFileState = useAppSelector(selectMergedFile);
 
@@ -53,7 +52,7 @@ function FilesUpdatedList({ }: Props): JSX.Element {
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
               <List sx={{ width: '100%', maxWidth: 360 }}>
-                {filesState.files.map((file) => (
+                {filesState.updatedFiles.map((file) => (
                   <ListItem
                     secondaryAction={
                       <IconButton edge="end" aria-label="export" size="medium" color="default"

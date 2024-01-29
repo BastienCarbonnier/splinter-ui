@@ -3,10 +3,12 @@ import { RootState } from '../store';
 
 export interface JsonFilesState {
   files: IJsonFile[];
+  updatedFiles: IJsonFile[];
 }
 
 const initialState: JsonFilesState = {
-  files: []
+  files: [],
+  updatedFiles: []
 };
 
 export const filesSlice = createSlice({
@@ -21,15 +23,20 @@ export const filesSlice = createSlice({
     },
     clearFiles: (state) => {
       state.files = [];
+      state.updatedFiles = [];
     },
     updateAllFiles: (state, action: PayloadAction<IJsonFile[]>) => {
       state.files = [...action.payload];
     },
+    setUpdatedFiles: (state, action: PayloadAction<IJsonFile[]>) => {
+      state.updatedFiles = [...action.payload];
+    },
   }
 });
 
-export const { add, deleteFile, clearFiles, updateAllFiles } = filesSlice.actions;
+export const { add, deleteFile, clearFiles, updateAllFiles, setUpdatedFiles } = filesSlice.actions;
 
 export const selectFiles = (state: RootState) => state.files;
+export const selectUpdatedFiles = (state: RootState) => state.updatedFiles;
 
 export default filesSlice.reducer;

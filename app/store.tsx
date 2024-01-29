@@ -5,6 +5,7 @@ import filesReducer from './store/files-reducer';
 export const store = configureStore({
   reducer: {
     files: filesReducer,
+    updatedFiles: filesReducer,
     mergedFile: mergedFileReducer
   },
 });

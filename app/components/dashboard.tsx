@@ -1,17 +1,11 @@
 "use client"
 import { Divider, Grid, Stack, Typography } from '@mui/material';
-import { useAppSelector } from '../hooks';
-import { selectMergedFile } from '../store/merged-file-reducer';
-import FileDisplayJson from './file/file-display-json';
-import FileDownloader from './file/file-downloader';
 import FilesClearer from './file/files-clearer';
-import FilesListDisplay from './file/files-list-display';
-import { selectFiles } from '../store/files-reducer';
 import FileUploader from './file/file-uploader';
+import FilesList from './v2/files-list';
+import FilesUpdatedList from './v2/files-updated-list';
 
 export default function Dashboard() {
-  const mergedFileState = useAppSelector(selectMergedFile);
-  const filesState = useAppSelector(selectFiles);
   return (
     <>
       <Typography variant="h4" gutterBottom>
@@ -24,22 +18,14 @@ export default function Dashboard() {
             divider={<Divider orientation="vertical" flexItem />}
             spacing={2}
           >
-            <FileUploader/>
+            <FileUploader />
             <FilesClearer />
           </Stack>
-
-          <FilesListDisplay></FilesListDisplay>
+          <FilesList></FilesList>
         </Grid>
-        {
-          mergedFileState.mergedFile &&
-            <Grid item xs={6}>
-              <Typography variant="h5" gutterBottom>
-                Results
-              </Typography>
-              <FileDownloader file={mergedFileState.mergedFile} />
-              <FileDisplayJson file={mergedFileState.mergedFile.json} title='Preview'></FileDisplayJson>
-            </Grid>
-        }
+        <Grid item xs={6}>
+          <FilesUpdatedList></FilesUpdatedList>
+        </Grid>
       </Grid>
     </>
   )
