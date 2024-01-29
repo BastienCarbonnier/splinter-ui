@@ -56,7 +56,7 @@ function FilesUpdatedList({ }: Props): JSX.Element {
                 {filesState.updatedFiles.map((file) => (
                   <ListItem
                     secondaryAction={
-                      <><ModalPreview file={file}></ModalPreview>
+                      <>
                       <IconButton edge="end" aria-label="export" size="medium" color="default"
                         onClick={() => {
                           exportData(file);
