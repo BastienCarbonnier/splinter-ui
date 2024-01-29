@@ -1,12 +1,5 @@
 {
-  "id": "52444867-a13d-49a7-87f7-3aec1f375f05",
-  "name": "results.json",
-  "json": {
-    "name1": "test",
-    "testObject": {
-      "name1": "test",
-      "name2": "testr",
-      "testObject": "essai"
-    }
-  }
+  "name3": "testr",
+  "name4": "test 4",
+  "name1": "test"
 }

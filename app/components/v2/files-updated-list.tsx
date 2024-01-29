@@ -36,14 +36,20 @@ function FilesUpdatedList({ }: Props): JSX.Element {
       mergedFileState.mergedFile && 
       <div>
         <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
-              <Typography variant="h5" gutterBottom>
-                Merged file
-              </Typography>
-              <FileDownloader file={mergedFileState.mergedFile}></FileDownloader>
+              <Grid container spacing={2} flexDirection='column'>
+                <Grid item>
+                  <Typography variant="h5" gutterBottom>
+                    Merged file
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <FileDownloader file={mergedFileState.mergedFile}></FileDownloader>
+                </Grid>
+              </Grid>
 
-              <Typography variant="h5" gutterBottom>
-                Updated files
-              </Typography>
+          <Typography variant="h5" gutterBottom>
+            Updated files
+          </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
               <List sx={{ width: '100%', maxWidth: 360 }}>

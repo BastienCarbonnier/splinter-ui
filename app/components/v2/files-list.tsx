@@ -3,7 +3,7 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { deleteFile, selectFiles, updateAllFiles } from '@/app/store/files-reducer';
-import { clearMergedFile, setMergedFile } from '@/app/store/merged-file-reducer';
+import { clearMergedFile, selectMergedFile, setMergedFile } from '@/app/store/merged-file-reducer';
 import { mergeFilesAndRemoveCommonKeys } from '@/app/services/splinter-api';
 
 interface Props {
@@ -12,6 +12,7 @@ interface Props {
 function FilesList({ }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const filesState = useAppSelector(selectFiles);
+  const mergedFileState = useAppSelector(selectMergedFile);
 
   const handleDelete = (id: string) => {
     dispatch(deleteFile(id));
@@ -36,39 +37,43 @@ function FilesList({ }: Props): JSX.Element {
   );
 
   return (
-    <div>
-      <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
-            <List sx={{ width: '100%', maxWidth: 360 }}>
-              {filesState.files.map((file) => (
-                <ListItem
-                  secondaryAction={
-                    <IconButton edge="end" aria-label="delete" size="medium" color="default"
-                      onClick={() => {
-                        handleDelete(file.id);
-                      }}>
-                      <DeleteIcon />
-                    </IconButton>
-                  }
-                  key={file.id}
-                >
-                  <ListItemAvatar>
-                    <Avatar>
-                      <InsertDriveFileIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={file.name}
-                  />
-                </ListItem>
-              ))}
-            </List>
-          </Grid>
+    <>
+    { !mergedFileState.mergedFile &&
+      <>
+    <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+          <List sx={{ width: '100%', maxWidth: 360 }}>
+            {filesState.files.map((file) => (
+              <ListItem
+                secondaryAction={
+                  <IconButton edge="end" aria-label="delete" size="medium" color="default"
+                    onClick={() => {
+                      handleDelete(file.id);
+                    }}>
+                    <DeleteIcon />
+                  </IconButton>
+                }
+                key={file.id}
+              >
+                <ListItemAvatar>
+                  <Avatar>
+                    <InsertDriveFileIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={file.name}
+                />
+              </ListItem>
+            ))}
+          </List>
         </Grid>
-      </Box>
-      {filesState.files.length > 1 && renderMergeButton()}
-    </div>
+      </Grid>
+    </Box>
+      { filesState.files.length > 1 && renderMergeButton() }
+    </>
+    }
+    </>
   )
 }
 

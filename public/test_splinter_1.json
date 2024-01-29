@@ -1,9 +1,4 @@
 {
   "name1": "test",
-  "name2": "testr",
-  "testObject": {
-    "name1": "test",
-    "name2": "testr",
-    "testObject": "essai"
-  }
+  "name2": "testr"
 }
