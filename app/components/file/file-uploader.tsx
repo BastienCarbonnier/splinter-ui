@@ -10,7 +10,6 @@ import FileDisplayJson from './file-display-json';
 
 export default function FileUploader() {
   const filesState = useAppSelector(selectFiles);
-  const mergedFileState = useAppSelector(selectFile);
   const dispatch = useAppDispatch();
 
   const handleMergeFiles = async () => {
@@ -34,8 +33,6 @@ export default function FileUploader() {
       <FileInput></FileInput>
       <FileListDisplay files={filesState.files}></FileListDisplay>
       { filesState.files.length > 1 && renderMergeButton() }
-
-      {mergedFileState.mergedFile && <FileDisplayJson file={mergedFileState.mergedFile}></FileDisplayJson> }
     </>
   )
 }
