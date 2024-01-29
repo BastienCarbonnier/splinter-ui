@@ -11,7 +11,7 @@ function FileDownloader({ file }: Props): JSX.Element {
   const fileExtension = '.json';
   const exportData = () => {
     const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
-      JSON.stringify(file, null, 2)
+      JSON.stringify(file.json, null, 2)
     )}`;
     const link = document.createElement("a");
     link.href = jsonString;
@@ -27,7 +27,7 @@ function FileDownloader({ file }: Props): JSX.Element {
           <Input value={downloadFileName} onChange={(event) => setDownloadFileName(event.target.value)} />{fileExtension}
         </Grid>
         <Grid item xs={6}>
-          <Button component="label" variant="contained" startIcon={<DownloadIcon />} onClick={() => {
+          <Button component="label" variant="contained" startIcon={<DownloadIcon/>} onClick={() => {
             exportData();
           }}>
             Download merge file
