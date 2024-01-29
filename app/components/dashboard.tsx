@@ -28,7 +28,7 @@ export default function Dashboard() {
             <FilesClearer />
           </Stack>
 
-          <FilesListDisplay files={filesState.files}></FilesListDisplay>
+          <FilesListDisplay></FilesListDisplay>
         </Grid>
         {
           mergedFileState.mergedFile &&

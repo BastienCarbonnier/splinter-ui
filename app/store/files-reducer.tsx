@@ -21,11 +21,14 @@ export const filesSlice = createSlice({
     },
     clearFiles: (state) => {
       state.files = [];
-    }
+    },
+    updateAllFiles: (state, action: PayloadAction<IJsonFile[]>) => {
+      state.files = [...action.payload];
+    },
   }
 });
 
-export const { add, deleteFile, clearFiles } = filesSlice.actions;
+export const { add, deleteFile, clearFiles, updateAllFiles } = filesSlice.actions;
 
 export const selectFiles = (state: RootState) => state.files;
 

@@ -2,14 +2,14 @@ import { Avatar, Box, Button, Grid, IconButton, List, ListItem, ListItemAvatar, 
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { deleteFile, selectFiles } from '@/app/store/files-reducer';
+import { deleteFile, selectFiles, updateAllFiles } from '@/app/store/files-reducer';
 import { clearMergedFile, setMergedFile } from '@/app/store/merged-file-reducer';
-import { mergeFiles } from '@/app/services/splinter-api';
+import { mergeFilesAndRemoveCommonKeys } from '@/app/services/splinter-api';
 
 interface Props {
 }
 
-function FilesListDisplay({ }: Props): JSX.Element {
+function FilesList({ }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const filesState = useAppSelector(selectFiles);
 
@@ -20,8 +20,10 @@ function FilesListDisplay({ }: Props): JSX.Element {
 
   const handleMergeFiles = async () => {
     try {
-      const res = await mergeFiles(filesState.files)
-      dispatch(setMergedFile(res.data))
+      const res = await mergeFilesAndRemoveCommonKeys(filesState.files)
+      console.log(res)
+      dispatch(setMergedFile(res.data.mergedFile))
+      dispatch(updateAllFiles(res.data.files))
     } catch (err) {
       console.log(err);
     }
@@ -70,4 +72,4 @@ function FilesListDisplay({ }: Props): JSX.Element {
   )
 }
 
-export default FilesListDisplay;
+export default FilesList;

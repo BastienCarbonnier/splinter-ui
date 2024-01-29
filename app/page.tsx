@@ -6,7 +6,7 @@ import { store } from './store';
 
 import Container from '@mui/material/Container';
 import Dashboard from './components/dashboard';
-import { ThemeProvider, Typography, createTheme } from '@mui/material';
+import { Grid, Link, ThemeProvider, Typography, createTheme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 
 const darkTheme = createTheme({
@@ -22,12 +22,14 @@ export default function Home() {
       <Provider store={store}>
         <main className={styles.main}>
           <Container>
-            <main>
-              <Typography variant="h3" gutterBottom>
-                Splinter
-              </Typography>
-              <Dashboard/>
-            </main>
+            <Grid container>
+              <Grid item xs={6}>
+                <Typography variant="h3" gutterBottom>
+                  Splinter
+                </Typography>
+              </Grid>
+            </Grid>  
+            <Dashboard/>
           </Container>
         </main>
       </Provider>
