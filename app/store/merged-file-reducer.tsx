@@ -13,17 +13,17 @@ export const fileSlice = createSlice({
   name: 'file',
   initialState,
   reducers: {
-    add: (state, action: PayloadAction<IJsonFile>) => {
+    setMergedFile: (state, action: PayloadAction<IJsonFile>) => {
       state.mergedFile = action.payload;
     },
-    init: (state) => {
+    clearMergedFile: (state) => {
       state.mergedFile = null;
     }
   }
 });
 
-export const { add, init } = fileSlice.actions;
+export const { setMergedFile, clearMergedFile } = fileSlice.actions;
 
-export const selectFile = (state: RootState) => state.mergedFile;
+export const selectMergedFile = (state: RootState) => state.mergedFile;
 
 export default fileSlice.reducer;

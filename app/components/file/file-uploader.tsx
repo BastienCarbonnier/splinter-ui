@@ -1,38 +1,63 @@
-"use client";
-import Button from '@mui/material/Button';
-import { mergeFiles } from '@/app/services/splinter-api';
-import FileListDisplay from './file-list-display';
-import FileInput from './file-input';
-import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { selectFiles } from '@/app/store/files-reducer';
-import { add, selectFile } from '@/app/store/merged-file-reducer';
-import FileDisplayJson from './file-display-json';
+import { Button } from '@mui/material';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { styled } from '@mui/material/styles';
+import { useAppDispatch } from '@/app/hooks';
+import { add } from '@/app/store/files-reducer';
+import { clearMergedFile } from '@/app/store/merged-file-reducer';
+import { v4 as uuidv4 } from 'uuid';
 
-export default function FileUploader() {
-  const filesState = useAppSelector(selectFiles);
+interface Props {
+}
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
+
+function FileUploader({ }: Props): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const handleMergeFiles = async () => {
-    try {
-      const res = await mergeFiles(filesState.files)
-      dispatch(add(res.data))
-
-    } catch (err) {
-      console.log(err);
+  function handleOnChange(e: React.FormEvent<HTMLInputElement>) {
+    const target = e.target as HTMLInputElement & {
+      files: FileList;
     }
-  };
-  
-  const renderMergeButton = (): React.ReactNode => (
-    <Button component="label" variant="contained" onClick={() => {
-      handleMergeFiles();
-    }}>Merge files</Button>
-  );
 
+    const { files } = target;
+
+    Array.from(files).forEach(file => {
+      const fileReader = new FileReader();
+
+      fileReader.onload = function () {
+        const jsonText = fileReader.result;
+        if (jsonText) {
+          const jsonFile: IJsonFile = {
+            id: uuidv4(),
+            name: file.name,
+            json: JSON.parse(jsonText.toString())
+          };
+          dispatch(clearMergedFile())
+          dispatch(add(jsonFile))
+        }
+      };
+
+      fileReader.readAsText(file, "UTF-8");
+    });
+  }
   return (
-    <>
-      <FileInput></FileInput>
-      <FileListDisplay files={filesState.files}></FileListDisplay>
-      { filesState.files.length > 1 && renderMergeButton() }
-    </>
+    <div>
+      <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
+        Upload file
+        <VisuallyHiddenInput type="file" id="jsonFile" name="jsonFile" onChange={handleOnChange} accept="application/json" multiple/>
+      </Button>
+    </div>
   )
 }
+
+export default FileUploader;

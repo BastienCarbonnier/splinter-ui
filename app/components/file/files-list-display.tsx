@@ -1,24 +1,38 @@
-import { Avatar, Box, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
+import { Avatar, Box, Button, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { deleteFile, selectFiles } from '@/app/store/files-reducer';
-import { init } from '@/app/store/merged-file-reducer';
+import { clearMergedFile, setMergedFile } from '@/app/store/merged-file-reducer';
+import { mergeFiles } from '@/app/services/splinter-api';
 
 interface Props {
   files: IJsonFile[]
 }
 
-function FileListDisplay({ files=[] }: Props): JSX.Element {
+function FilesListDisplay({ files=[] }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const filesState = useAppSelector(selectFiles);
 
   const handleDelete = (id: string) => {
     dispatch(deleteFile(id));
-    if (filesState.files.length <= 2) {
-      dispatch(init());
-    }
+    dispatch(clearMergedFile())
   }
+
+  const handleMergeFiles = async () => {
+    try {
+      const res = await mergeFiles(filesState.files)
+      dispatch(setMergedFile(res.data))
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const renderMergeButton = (): React.ReactNode => (
+    <Button component="label" variant="contained" onClick={() => {
+      handleMergeFiles();
+    }}>Merge files</Button>
+  );
 
   return (
     <div>
@@ -36,7 +50,7 @@ function FileListDisplay({ files=[] }: Props): JSX.Element {
                       <DeleteIcon />
                     </IconButton>
                   }
-                  key={file.name}
+                  key={file.id}
                 >
                   <ListItemAvatar>
                     <Avatar>
@@ -52,8 +66,9 @@ function FileListDisplay({ files=[] }: Props): JSX.Element {
           </Grid>
         </Grid>
       </Box>
+      {filesState.files.length > 1 && renderMergeButton()}
     </div>
   )
 }
 
-export default FileListDisplay;
+export default FilesListDisplay;

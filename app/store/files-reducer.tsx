@@ -1,4 +1,4 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 export interface JsonFilesState {
@@ -18,11 +18,14 @@ export const filesSlice = createSlice({
     },
     deleteFile: (state, action: PayloadAction<string>) => {
       state.files = [...state.files.filter((file) => file.id !== action.payload)];
+    },
+    clearFiles: (state) => {
+      state.files = [];
     }
   }
 });
 
-export const { add, deleteFile } = filesSlice.actions;
+export const { add, deleteFile, clearFiles } = filesSlice.actions;
 
 export const selectFiles = (state: RootState) => state.files;
 
