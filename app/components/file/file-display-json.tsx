@@ -13,7 +13,7 @@ function FileDisplayJson({ file, title }: Props): JSX.Element {
       <Typography variant="h6" gutterBottom>
         {title}
       </Typography>
-      <Box component="pre" sx={{ overflow: 'auto', maxHeight: '50vh' }}>
+      <Box component="pre" sx={{ overflow: 'auto' }}>
         {JSON.stringify(file, null, 2)}
       </Box>
     </>
