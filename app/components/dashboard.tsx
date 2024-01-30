@@ -9,7 +9,7 @@ export default function Dashboard() {
   return (
     <>
       <Grid container spacing={10}>
-        <Grid item xs={6}>
+        <Grid item md={6} xs={12}>
           <Stack
             width='100%'
             direction="row"
@@ -21,7 +21,7 @@ export default function Dashboard() {
           </Stack>
           <FilesList></FilesList>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item md={6} xs={12}>
           <FilesUpdatedList></FilesUpdatedList>
         </Grid>
       </Grid>
