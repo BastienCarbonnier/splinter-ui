@@ -24,8 +24,8 @@ export default function Home() {
           <Container>
             <Grid container>
               <Grid item xs={6}>
-                <Typography variant="h3" gutterBottom>
-                  Splinter
+                <Typography variant="h3" marginBottom='1em' marginTop='1em'>
+                  File merger
                 </Typography>
               </Grid>
             </Grid>  

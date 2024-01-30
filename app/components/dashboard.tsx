@@ -8,10 +8,7 @@ import FilesUpdatedList from './v2/files-updated-list';
 export default function Dashboard() {
   return (
     <>
-      <Typography variant="h4" gutterBottom>
-        File merger
-      </Typography>
-      <Grid container spacing={6}>
+      <Grid container spacing={10}>
         <Grid item xs={6}>
           <Stack
             width='100%'

@@ -13,6 +13,8 @@ const style = {
   transform: 'translate(-50%, -50%)',
   maxHeight: '70vh',
   maxWidth: '70%',
+  minWidth: '30%',
+  minHeight: '30%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -41,7 +43,7 @@ function FileModalPreview({ file }: Props): JSX.Element {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <FileDisplayJson file={file.json} title='Preview'></FileDisplayJson>
+          <FileDisplayJson file={file.json} title={`Preview : ${file.name}`}></FileDisplayJson>
         </Box>
       </Modal>
     </>

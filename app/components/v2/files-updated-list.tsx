@@ -46,9 +46,16 @@ function FilesUpdatedList({ }: Props): JSX.Element {
             <FilesDownloader files={filesState.updatedFiles} mergedFile={mergedFileState.mergedFile}></FilesDownloader>
           </Grid>
         </Grid>
-        <Typography variant="h6">
-          Merged file
-        </Typography>
+        <Stack
+          direction="row"
+          divider={<Divider orientation="vertical" flexItem />}
+          spacing={2}
+        >
+          <Typography variant="h6">
+            Merged file
+          </Typography>
+          <FileModalPreview file={mergedFileState.mergedFile}></FileModalPreview>
+        </Stack>
         <FileDownloader file={mergedFileState.mergedFile}></FileDownloader>
         <Grid container spacing={2}>
           <Grid item xs={12}>
