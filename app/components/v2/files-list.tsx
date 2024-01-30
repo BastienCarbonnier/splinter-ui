@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
+import { Avatar, Box, Button, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, Stack } from '@mui/material';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
@@ -6,6 +6,7 @@ import { deleteFile, selectFiles, setUpdatedFiles, updateAllFiles } from '@/app/
 import { clearMergedFile, selectMergedFile, setMergedFile } from '@/app/store/merged-file-reducer';
 import { mergeFilesAndRemoveCommonKeys } from '@/app/services/splinter-api';
 import ModalPreview from '../modal-preview';
+import MergeIcon from '@mui/icons-material/Merge';
 
 interface Props {
 }
@@ -32,28 +33,35 @@ function FilesList({ }: Props): JSX.Element {
   };
 
   const renderMergeButton = (): React.ReactNode => (
-    <Button component="label" variant="contained" onClick={() => {
+    <Button component="label" variant="contained" startIcon={<MergeIcon/>} fullWidth={true} onClick={() => {
       handleMergeFiles();
-    }}>Merge files</Button>
+    }}>
+      Merge files</Button>
   );
 
   return (
     <>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <List sx={{ width: '70%' }}>
+          <List sx={{ width: '100%' }}>
             {filesState.files.map((file) => (
               <ListItem
                 secondaryAction={
-                  <>
-                    <ModalPreview file={file}></ModalPreview>
-                    <IconButton edge="end" aria-label="delete" size="medium" color="default"
-                      onClick={() => {
-                        handleDelete(file.id);
-                      }}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </>
+                   <>
+                      <Stack
+                        direction="row"
+                        divider={<Divider orientation="vertical" flexItem />}
+                        spacing={2}
+                      >
+                        <ModalPreview file={file}></ModalPreview>
+                        <IconButton edge="end" aria-label="delete" size="medium" color="default"
+                          onClick={() => {
+                            handleDelete(file.id);
+                          }}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </Stack>
+                    </>
                 }
                 key={file.id}
               >

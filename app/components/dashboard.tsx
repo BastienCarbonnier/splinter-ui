@@ -11,12 +11,13 @@ export default function Dashboard() {
       <Typography variant="h4" gutterBottom>
         File merger
       </Typography>
-      <Grid container spacing={2}>
+      <Grid container spacing={6}>
         <Grid item xs={6}>
           <Stack
+            width='100%'
             direction="row"
             divider={<Divider orientation="vertical" flexItem />}
-            spacing={2}
+            spacing={4}
           >
             <FileUploader />
             <FilesClearer />

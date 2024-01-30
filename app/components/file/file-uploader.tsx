@@ -53,8 +53,8 @@ function FileUploader({ }: Props): JSX.Element {
   }
   return (
     <div>
-      <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
-        Upload file
+      <Button component="label" variant="contained" startIcon={<CloudUploadIcon />} fullWidth={true}>
+        Upload file(s)
         <VisuallyHiddenInput type="file" id="jsonFile" name="jsonFile" onChange={(event) => handleOnChange(event)} accept="application/json" multiple/>
       </Button>
     </div>

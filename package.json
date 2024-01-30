@@ -17,6 +17,8 @@
     "@mui/styled-engine-sc": "^6.0.0-alpha.4",
     "@reduxjs/toolkit": "^1.9.7",
     "axios": "^1.6.0",
+    "file-saver": "^2.0.5",
+    "jszip": "^3.10.1",
     "next": "14.0.1",
     "react": "^18",
     "react-dom": "^18",
@@ -25,6 +27,7 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

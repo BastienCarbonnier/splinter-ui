@@ -1,4 +1,4 @@
-import { Button, Grid, Input, Typography } from '@mui/material';
+import { Button, Grid, Input, InputAdornment, Typography } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import { useState } from 'react';
 
@@ -23,11 +23,12 @@ function FileDownloader({ file }: Props): JSX.Element {
   return (
     <>
       <Grid container spacing={2} marginBottom='3rem'>
-        <Grid item>
-          <Input value={downloadFileName} onChange={(event) => setDownloadFileName(event.target.value)} />{fileExtension}
+        <Grid item xs={6}>
+          <Input value={downloadFileName} fullWidth={true} onChange={(event) => setDownloadFileName(event.target.value)} endAdornment={<InputAdornment disableTypography position="end">
+            {fileExtension}</InputAdornment>} />
         </Grid>
         <Grid item xs={6}>
-          <Button component="label" variant="contained" startIcon={<DownloadIcon/>} onClick={() => {
+          <Button component="label" variant="contained" fullWidth={true} startIcon={<DownloadIcon/>} onClick={() => {
             exportData();
           }}>
             Download merge file
