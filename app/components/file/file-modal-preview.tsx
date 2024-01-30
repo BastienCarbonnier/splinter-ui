@@ -1,8 +1,7 @@
-import { Box, Button, IconButton, Modal, Typography } from '@mui/material';
-import { useAppDispatch } from '@/app/hooks';
+import { Box, IconButton, Modal, Typography } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { useState } from 'react';
-import FileDisplayJson from './file/file-display-json';
+import FileDisplayJson from './file-display-json';
 
 interface Props {
   file: IJsonFile
@@ -13,6 +12,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   maxHeight: '70vh',
+  maxWidth: '70%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -20,7 +20,7 @@ const style = {
   overflow: 'auto'
 };
 
-function ModalPreview({ file }: Props): JSX.Element {
+function FileModalPreview({ file }: Props): JSX.Element {
   const [open, setOpen] = useState(false);
 
   function handleClose() {
@@ -48,4 +48,4 @@ function ModalPreview({ file }: Props): JSX.Element {
   )
 }
 
-export default ModalPreview;
+export default FileModalPreview;

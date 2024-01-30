@@ -1,13 +1,11 @@
-import { Avatar, Box, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, Stack, Typography } from '@mui/material';
+import { Avatar, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, Stack, Typography } from '@mui/material';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import { useAppSelector } from '@/app/hooks';
 import { selectUpdatedFiles } from '@/app/store/files-reducer';
-
-
 import DownloadIcon from '@mui/icons-material/Download';
 import { selectMergedFile } from '@/app/store/merged-file-reducer';
 import FileDownloader from '../file/file-downloader';
-import ModalPreview from '../modal-preview';
+import FileModalPreview from '../file/file-modal-preview';
 import FilesDownloader from '../file/files-downloader';
 
 interface Props {
@@ -64,7 +62,7 @@ function FilesUpdatedList({ }: Props): JSX.Element {
                         divider={<Divider orientation="vertical" flexItem />}
                         spacing={2}
                       >
-                        <ModalPreview file={file}></ModalPreview>
+                        <FileModalPreview file={file}></FileModalPreview>
                         <IconButton edge="end" aria-label="export" size="medium" color="default"
                           onClick={() => {
                             exportData(file);

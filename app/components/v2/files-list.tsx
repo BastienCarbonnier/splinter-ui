@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { deleteFile, selectFiles, setUpdatedFiles, updateAllFiles } from '@/app/store/files-reducer';
 import { clearMergedFile, selectMergedFile, setMergedFile } from '@/app/store/merged-file-reducer';
 import { mergeFilesAndRemoveCommonKeys } from '@/app/services/splinter-api';
-import ModalPreview from '../modal-preview';
+import FileModalPreview from '../file/file-modal-preview';
 import MergeIcon from '@mui/icons-material/Merge';
 
 interface Props {
@@ -53,7 +53,7 @@ function FilesList({ }: Props): JSX.Element {
                         divider={<Divider orientation="vertical" flexItem />}
                         spacing={2}
                       >
-                        <ModalPreview file={file}></ModalPreview>
+                        <FileModalPreview file={file}></FileModalPreview>
                         <IconButton edge="end" aria-label="delete" size="medium" color="default"
                           onClick={() => {
                             handleDelete(file.id);
