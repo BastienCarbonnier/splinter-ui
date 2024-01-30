@@ -34,54 +34,53 @@ function FilesUpdatedList({ }: Props): JSX.Element {
     <>
     {
       mergedFileState.mergedFile && 
-      <div>
-        <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
-              <Grid container spacing={2} flexDirection='column'>
-                <Grid item>
-                  <Typography variant="h5" gutterBottom>
-                    Merged file
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <FileDownloader file={mergedFileState.mergedFile}></FileDownloader>
-                </Grid>
-              </Grid>
+      <>
+        <Grid container spacing={2} flexDirection='column'>
+          <Grid item>
+            <Typography variant="h5" gutterBottom>
+              Merged file
+            </Typography>
+          </Grid>
+          <Grid item>
+            <FileDownloader file={mergedFileState.mergedFile}></FileDownloader>
+          </Grid>
+        </Grid>
 
-          <Typography variant="h5" gutterBottom>
-            Updated files
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
-              <List sx={{ width: '100%', maxWidth: 360 }}>
-                {filesState.updatedFiles.map((file) => (
-                  <ListItem
-                    secondaryAction={
-                      <>
+        <Typography variant="h5" gutterBottom>
+          Updated files
+        </Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <List sx={{ width: '100%' }}>
+              {filesState.updatedFiles.map((file) => (
+                <ListItem
+                  secondaryAction={
+                    <>
+                      <ModalPreview file={file}></ModalPreview>
                       <IconButton edge="end" aria-label="export" size="medium" color="default"
                         onClick={() => {
                           exportData(file);
                         }}>
                         <DownloadIcon />
                       </IconButton>
-                      </>
-                    }
-                    key={file.id}
-                  >
-                    <ListItemAvatar>
-                      <Avatar>
-                        <InsertDriveFileIcon />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={file.name}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </Grid>
+                    </>
+                  }
+                  key={file.id}
+                >
+                  <ListItemAvatar>
+                    <Avatar>
+                      <InsertDriveFileIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={file.name}
+                  />
+                </ListItem>
+              ))}
+            </List>
           </Grid>
-        </Box>
-      </div>
+        </Grid>
+      </>
   }
     </>
   )

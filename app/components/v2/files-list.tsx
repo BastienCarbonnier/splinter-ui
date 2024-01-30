@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { deleteFile, selectFiles, setUpdatedFiles, updateAllFiles } from '@/app/store/files-reducer';
 import { clearMergedFile, selectMergedFile, setMergedFile } from '@/app/store/merged-file-reducer';
 import { mergeFilesAndRemoveCommonKeys } from '@/app/services/splinter-api';
+import ModalPreview from '../modal-preview';
 
 interface Props {
 }
@@ -38,19 +39,21 @@ function FilesList({ }: Props): JSX.Element {
 
   return (
     <>
-    <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <List sx={{ width: '100%', maxWidth: 360 }}>
+        <Grid item xs={12}>
+          <List sx={{ width: '70%' }}>
             {filesState.files.map((file) => (
               <ListItem
                 secondaryAction={
-                  <IconButton edge="end" aria-label="delete" size="medium" color="default"
-                    onClick={() => {
-                      handleDelete(file.id);
-                    }}>
-                    <DeleteIcon />
-                  </IconButton>
+                  <>
+                    <ModalPreview file={file}></ModalPreview>
+                    <IconButton edge="end" aria-label="delete" size="medium" color="default"
+                      onClick={() => {
+                        handleDelete(file.id);
+                      }}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </>
                 }
                 key={file.id}
               >
@@ -67,7 +70,6 @@ function FilesList({ }: Props): JSX.Element {
           </List>
         </Grid>
       </Grid>
-    </Box>
       { filesState.files.length > 1 && renderMergeButton() }
     </>
   )
