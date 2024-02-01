@@ -4,11 +4,16 @@ import FilesClearer from './file/files-clearer';
 import FileUploader from './file/file-uploader';
 import FilesList from './v2/files-list';
 import FilesUpdatedList from './v2/files-updated-list';
+import { useAppSelector } from '../hooks';
+import { selectUpdatedFiles } from '../store/files-reducer';
+import { selectMergedFile } from '../store/merged-file-reducer';
 
 export default function Dashboard() {
+  const filesState = useAppSelector(selectUpdatedFiles);
+  const mergedFileState = useAppSelector(selectMergedFile);
   return (
     <>
-      <Grid container spacing={10}>
+      <Grid container>
         <Grid item md={6} xs={12}>
           <Stack
             width='100%'
@@ -22,7 +27,7 @@ export default function Dashboard() {
           <FilesList></FilesList>
         </Grid>
         <Grid item md={6} xs={12}>
-          <FilesUpdatedList></FilesUpdatedList>
+          <FilesUpdatedList files={filesState.updatedFiles} mergedFile={mergedFileState.mergedFile}></FilesUpdatedList>
         </Grid>
       </Grid>
     </>

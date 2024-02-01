@@ -22,12 +22,13 @@ export default function Home() {
       <Provider store={store}>
         <main className={styles.main}>
           <Container>
-            <Grid container>
+            <Grid container alignItems='center'>
               <Grid item xs={6}>
                 <Typography variant="h3" marginBottom='1em' marginTop='1em'>
                   File merger
                 </Typography>
               </Grid>
+              <Grid item xs={6}><Link href='/validation'>Go to validation page</Link></Grid>
             </Grid>  
             <Dashboard/>
           </Container>
