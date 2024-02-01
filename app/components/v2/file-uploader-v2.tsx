@@ -7,6 +7,7 @@ interface Props {
   handleUploadedFile: (file: IJsonFile) => void
   buttonText?: string
   disabledUpload ?: boolean
+  allowMultipleFile ?: boolean
 }
 
 const VisuallyHiddenInput = styled('input')({
@@ -21,7 +22,7 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-function FileUploaderV2({ handleUploadedFile, buttonText = 'Upload file(s)', disabledUpload = false }: Props): JSX.Element {
+function FileUploaderV2({ handleUploadedFile, buttonText = 'Upload file(s)', disabledUpload = false, allowMultipleFile = true }: Props): JSX.Element {
 
   function handleOnChange(e: React.FormEvent<HTMLInputElement>) {
     const target = e.target as HTMLInputElement & {
@@ -53,7 +54,7 @@ function FileUploaderV2({ handleUploadedFile, buttonText = 'Upload file(s)', dis
   return (
     <Button component="label" variant="contained" startIcon={<CloudUploadIcon />} fullWidth={true} disabled={disabledUpload}>
       {buttonText}
-      <VisuallyHiddenInput type="file" id="jsonFile" name="jsonFile" onChange={(event) => handleOnChange(event)} accept="application/json" multiple/>
+      <VisuallyHiddenInput type="file" id="jsonFile" name="jsonFile" onChange={(event) => handleOnChange(event)} accept="application/json" multiple={allowMultipleFile}/>
     </Button>
   )
 }

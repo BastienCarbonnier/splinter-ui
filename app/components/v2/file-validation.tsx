@@ -90,7 +90,8 @@ function FileValidation({ }: Props): JSX.Element {
             Reference file
           </Typography>
           <FileUploaderV2 handleUploadedFile={handleReferenceFile} 
-                          buttonText='Upload Reference file'></FileUploaderV2>
+                          buttonText='Upload Reference file'
+                          allowMultipleFile={false}></FileUploaderV2>
           {mergedFileState.mergedFile && <FilesListDisplayV2 files={[mergedFileState.mergedFile]} deletePossible={false}></FilesListDisplayV2>}
         </Grid>
         <Grid item xs={12} md={6}>
