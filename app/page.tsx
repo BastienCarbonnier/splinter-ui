@@ -6,8 +6,12 @@ import { store } from './store';
 
 import Container from '@mui/material/Container';
 import Dashboard from './components/dashboard';
-import { Grid, Link, ThemeProvider, Typography, createTheme } from '@mui/material';
+import { AppBar, Box, Button, Divider, Drawer, Grid, IconButton, Link, List, ListItem, ListItemButton, ListItemText, ThemeProvider, Toolbar, Typography, createTheme } from '@mui/material';
+
+import MenuIcon from '@mui/icons-material/Menu';
 import CssBaseline from '@mui/material/CssBaseline';
+import React from 'react';
+import Header from './components/header';
 
 const darkTheme = createTheme({
   palette: {
@@ -20,15 +24,15 @@ export default function Home() {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Provider store={store}>
+        <Header></Header>
         <main className={styles.main}>
           <Container>
-            <Grid container alignItems='center'>
-              <Grid item xs={6}>
+            <Grid container alignItems='center' marginTop='64px'>
+              <Grid item xs={12}>
                 <Typography variant="h3" marginBottom='1em' marginTop='1em'>
                   File merger
                 </Typography>
               </Grid>
-              <Grid item xs={6} textAlign='end'><Link href='/validation'>Go to validation page</Link></Grid>
             </Grid>  
             <Dashboard/>
           </Container>

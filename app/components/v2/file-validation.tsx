@@ -29,7 +29,7 @@ function FileValidation({ }: Props): JSX.Element {
   }
 
   function handleFileDelete(file: IJsonFile) {
-    dispatch(deleteFile(file.id))
+    dispatch(deleteFile(file.id));
   }
   const handleValidation = async () => {
     const jsons = filesState.files.map(file => file.json);
@@ -71,12 +71,12 @@ function FileValidation({ }: Props): JSX.Element {
 
   return (
   <>
-      <Grid container xs={12} md={12} justifyContent='center'>
+      <Grid container justifyContent='center'>
         <Grid item xs={12} md={6}>
           {isValid != null && renderValidationMessage()}
         </Grid>
       </Grid>
-      <Grid container gap={2} justifyContent="center" direction='row' marginTop='1em' md={6} marginX='auto'>
+      <Grid container gap={2} justifyContent="center" direction='row' marginTop='1em' marginX='auto'>
         <Grid item xs={12} md={5}>
           {renderValidationButton(filesState.files.length > 0 && mergedFileState.mergedFile != null)}
         </Grid>
