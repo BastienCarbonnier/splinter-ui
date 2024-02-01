@@ -10,7 +10,7 @@ import { add, clearFiles, deleteFile, selectFiles } from '@/app/store/files-redu
 import { clearMergedFile, selectMergedFile, setMergedFile } from '@/app/store/merged-file-reducer';
 import { useSelector } from 'react-redux';
 import { validateFiles } from '@/app/services/splinter-api';
-import { file } from 'jszip';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface Props {
 }
@@ -44,10 +44,10 @@ function FileValidation({ }: Props): JSX.Element {
   };
 
   const renderValidationButton = (notDisabled: boolean): React.ReactNode => (
-    <Button component="label" variant="contained" fullWidth={true} disabled={!notDisabled} onClick={() => {
+    <Button component="label" variant="contained" color='success' fullWidth={true} disabled={!notDisabled} onClick={() => {
       handleValidation();
     }}>
-      Validate</Button>
+      Validate files</Button>
   );
 
   function handleClearAll() {
@@ -58,11 +58,11 @@ function FileValidation({ }: Props): JSX.Element {
 
   const renderValidationMessage = (): React.ReactNode => {
     const messageValid = 'Reference file contains all key/values of the bunch of files.';
-    let icon = <CloseIcon fontSize="inherit" />;
+    let icon = <CloseIcon fontSize="inherit" style={{ color: 'white' }} />;
     let message = 'Reference file is missing some key/values of the bunch of files.'
     let severity: AlertColor = 'error';
     if (isValid) {
-      icon = <CheckIcon fontSize="inherit" />;
+      icon = <CheckIcon fontSize="inherit" style={{ color: 'white' }} />;
       message = messageValid;
       severity = 'success';
     }
@@ -71,17 +71,23 @@ function FileValidation({ }: Props): JSX.Element {
 
   return (
   <>
-      {isValid != null && renderValidationMessage()}
-
-      <Grid container spacing={2} justifyContent="center" direction='column'>
-        <Grid item xs={12} md={6} marginTop='1em'>
+      <Grid container xs={12} md={12} justifyContent='center'>
+        <Grid item xs={12} md={6}>
+          {isValid != null && renderValidationMessage()}
+        </Grid>
+      </Grid>
+      <Grid container gap={2} justifyContent="center" direction='row' marginTop='1em' md={6} marginX='auto'>
+        <Grid item xs={12} md={5}>
           {renderValidationButton(filesState.files.length > 0 && mergedFileState.mergedFile != null)}
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Button component="label" variant="contained" fullWidth={true} onClick={() => {
-            handleClearAll();
-          }}>
-            Clear all files</Button>
+        <Grid item xs={12} md={5}>
+          <Button component="label" disabled={!(filesState.files.length > 0 || mergedFileState.mergedFile != null)}
+                  variant="contained" 
+                  color='error' 
+                  fullWidth={true} startIcon={<DeleteIcon />} onClick={() => {
+              handleClearAll();
+            }}>
+              Clear all files</Button>
         </Grid>
       </Grid>
       <Grid container spacing={2}>

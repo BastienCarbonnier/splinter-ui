@@ -28,7 +28,7 @@ export default function Home() {
                   File merger
                 </Typography>
               </Grid>
-              <Grid item xs={6}><Link href='/validation'>Go to validation page</Link></Grid>
+              <Grid item xs={6} textAlign='end'><Link href='/validation'>Go to validation page</Link></Grid>
             </Grid>  
             <Dashboard/>
           </Container>
