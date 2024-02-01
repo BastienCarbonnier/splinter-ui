@@ -13,7 +13,7 @@ export default function Dashboard() {
   const mergedFileState = useAppSelector(selectMergedFile);
   return (
     <>
-      <Grid container>
+      <Grid container columnSpacing={10}>
         <Grid item md={6} xs={12}>
           <Stack
             width='100%'
