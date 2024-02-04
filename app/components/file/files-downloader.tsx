@@ -35,7 +35,7 @@ function FilesDownloader({ files, mergedFile }: Props): JSX.Element {
   };
 
   const convertFileToBlob = (file: IJsonFile): Blob => {
-    const str = JSON.stringify(file, null, 2);
+    const str = JSON.stringify(file, null, 4);
     const bytes = new TextEncoder().encode(str);
     return new Blob([bytes], {
       type: "application/json;charset=utf-8"

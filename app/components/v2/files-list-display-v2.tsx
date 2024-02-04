@@ -1,7 +1,5 @@
 import { Avatar, Box, Button, Divider, Grid, IconButton, List, ListItem, ListItemAvatar, ListItemText, Stack } from '@mui/material';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { selectFiles } from '@/app/store/files-reducer';
 import FileModalPreview from '../file/file-modal-preview';
 import { exportData } from '@/app/utils/file.utils';
 import DeleteIcon from '@mui/icons-material/Delete';

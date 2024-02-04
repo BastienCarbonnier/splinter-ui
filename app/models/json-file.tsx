@@ -3,3 +3,8 @@ interface IJsonFile {
   name: string;
   json: any;
 }
+
+interface IBackendResponse {
+  mergedFile: IJsonFile;
+  files: IJsonFile[];
+}

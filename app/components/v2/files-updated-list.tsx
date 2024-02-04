@@ -43,7 +43,7 @@ function FilesUpdatedList({ files, mergedFile }: Props): JSX.Element {
         <FileDownloader file={mergedFile}></FileDownloader>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <List sx={{ width: '100%' }}>
+              <List sx={{ width: '100%', maxHeight: '20em', overflow: 'auto' }}>
               {files.map((file) => (
                 <ListItem
                   secondaryAction={
