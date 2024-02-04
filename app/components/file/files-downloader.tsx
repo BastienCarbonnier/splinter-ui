@@ -6,6 +6,7 @@ import JSZip from 'jszip';
 import { useAppSelector } from '@/app/hooks';
 import { selectUpdatedFiles } from '@/app/store/files-reducer';
 import { selectMergedFile } from '@/app/store/merged-file-reducer';
+import { convertFileToBlob } from '@/app/utils/file.utils';
 
 interface Props {
   files: IJsonFile[]
@@ -31,14 +32,6 @@ function FilesDownloader({ files, mergedFile }: Props): JSX.Element {
 
     zip.generateAsync({ type: "blob" }).then(function (content) {
       saveAs(content, `${downloadZipName}${fileExtension}`);
-    });
-  };
-
-  const convertFileToBlob = (file: IJsonFile): Blob => {
-    const str = JSON.stringify(file, null, 4);
-    const bytes = new TextEncoder().encode(str);
-    return new Blob([bytes], {
-      type: "application/json;charset=utf-8"
     });
   };
 

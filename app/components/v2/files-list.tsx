@@ -10,6 +10,9 @@ import MergeIcon from '@mui/icons-material/Merge';
 import { LANGUAGES, LanguageEnum } from '@/app/models/language.enum';
 import { BRANDS, BrandEnum } from '@/app/models/brand.enum';
 import { PROVINCES, ProvinceEnum } from '@/app/models/province.enum';
+import { convertFileToBlob } from '@/app/utils/file.utils';
+import saveAs from 'file-saver';
+import JSZip, { files } from 'jszip';
 
 interface Props {
 }
@@ -46,44 +49,59 @@ function FilesList({ }: Props): JSX.Element {
       })
     })
   }
+
+  
   // belair_en_CA_ab.json
-/*
-  const handleAllFilesMerge = async () => {
+  const handleAllFilesMergeZipCreation = async (allFilesResult: any) => {
     console.log('handle files merge')
-    try {
-      const allFiles = filesState.files;
-      const responseByLanguage: Map<LanguageEnum, IBackendResponse> = new Map();
-
-      const responseByBrand: Map<BrandEnum, Map<LanguageEnum, IBackendResponse>> = new Map();
-
+    const zip = new JSZip();
+    const downloadZipName = 'i18n';
+    const fileExtension = '.json';
+    const zipFolder = zip.folder(downloadZipName);
+  
+    console.log(allFilesResult)
+    LANGUAGES.forEach(async (lang) => {
+      const file = allFilesResult[lang].json;
+      if (file) {
+        zipFolder?.file(`${lang}${fileExtension}`, convertFileToBlob(file), { base64: true });
+      }
+    });
+    BRANDS.forEach(async (brand) => {
+      const brandFolder = zipFolder?.folder(brand.toLowerCase());
+      
       LANGUAGES.forEach(async (lang) => {
-        const response: IBackendResponse = await mergeFileByName(allFiles, lang);
-        if (response.files.length > 0) {
-          responseByLanguage.set(lang, response);
+        if (allFilesResult.brands[brand.toUpperCase()] && allFilesResult.brands[brand.toUpperCase()][lang]) {
+          const file = allFilesResult.brands[brand.toUpperCase()][lang].json;
+          if (file) {
+            brandFolder?.file(`${lang}${fileExtension}`, convertFileToBlob(file), { base64: true });
+          }
         }
-
-        BRANDS.forEach(async (brand) => {
-          LANGUAGES.forEach(async (lang) => {
-            const responseBrandAndLanguage: Map<LanguageEnum, IBackendResponse> = new Map();
-            const res = await mergeFileByName(allFiles, brand);
-            if (res.files.length > 0) {
-              responseBrandAndLanguage.set(lang, res);
-            }
-            responseByBrand.set(brand, responseBrandAndLanguage);
-          });
-        });
       });
-    } catch (err) {
-      console.log(err);
-    }
+
+      PROVINCES.forEach(async (province) => {
+        if (allFilesResult.brands[brand.toUpperCase()]?.provinces?.[province]) {
+          const provinceFolder = brandFolder?.folder(province);
+          LANGUAGES.forEach(async (lang) => {
+            const file = allFilesResult.brands[brand.toUpperCase()]?.provinces?.[province]?.[lang]?.json;
+            if (file) {
+              provinceFolder?.file(`${lang}${fileExtension}`, convertFileToBlob(file), { base64: true });
+            }
+          });
+        }
+      });
+    });
+
+    zip.generateAsync({ type: "blob" }).then(function (content) {
+      saveAs(content, `${downloadZipName}.zip`);
+    });
   };
-  */
+  
   const handleAllFilesMerge = async () => {
     try {
       const res = await mergeFilesAndRemoveCommonKeysAllFiles(filesState.files)
-      console.log(res)
-      //dispatch(setMergedFile(res.data.mergedFile))
-      //dispatch(setUpdatedFiles(res.data.files))
+      console.log(res.data)
+      handleAllFilesMergeZipCreation(res.data);
+      
     } catch (err) {
       console.log(err);
     }

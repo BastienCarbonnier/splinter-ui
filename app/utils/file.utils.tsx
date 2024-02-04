@@ -10,3 +10,11 @@ export const exportData = (file: IJsonFile | null) => {
     link.click();
   }
 };
+
+export const convertFileToBlob = (file: IJsonFile): Blob => {
+  const str = JSON.stringify(file, null, 4);
+  const bytes = new TextEncoder().encode(str);
+  return new Blob([bytes], {
+    type: "application/json;charset=utf-8"
+  });
+};
