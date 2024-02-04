@@ -7,12 +7,12 @@ import { clearMergedFile, selectMergedFile, setMergedFile } from '@/app/store/me
 import { mergeFilesAndRemoveCommonKeys, mergeFilesAndRemoveCommonKeysAllFiles } from '@/app/services/splinter-api';
 import FileModalPreview from '../file/file-modal-preview';
 import MergeIcon from '@mui/icons-material/Merge';
-import { LANGUAGES, LanguageEnum } from '@/app/models/language.enum';
-import { BRANDS, BrandEnum } from '@/app/models/brand.enum';
-import { PROVINCES, ProvinceEnum } from '@/app/models/province.enum';
+import { LANGUAGES } from '@/app/models/language.enum';
+import { BRANDS } from '@/app/models/brand.enum';
+import { PROVINCES } from '@/app/models/province.enum';
 import { convertFileToBlob } from '@/app/utils/file.utils';
 import saveAs from 'file-saver';
-import JSZip, { files } from 'jszip';
+import JSZip from 'jszip';
 
 interface Props {
 }
@@ -38,20 +38,6 @@ function FilesList({ }: Props): JSX.Element {
     }
   };
 
-  const mergeFileByName = async (files: IJsonFile[] = [], nameQuery: string): Promise<IBackendResponse> => {
-    const res = await mergeFilesAndRemoveCommonKeys(files.filter(file => file.name.includes(nameQuery)));
-    console.log(nameQuery)
-    console.log(res.data);
-    return new Promise((resolve) => {
-      resolve({
-        mergedFile: res.data.mergedFile,
-        files: res.data.files
-      })
-    })
-  }
-
-  
-  // belair_en_CA_ab.json
   const handleAllFilesMergeZipCreation = async (allFilesResult: any) => {
     console.log('handle files merge')
     const zip = new JSZip();
@@ -115,7 +101,7 @@ function FilesList({ }: Props): JSX.Element {
   );
 
   const renderAllI18nFilesButton = (): React.ReactNode => (
-    <Button component="label" variant="contained" startIcon={<MergeIcon />} fullWidth={true} onClick={() => {
+    <Button component="label" variant="contained" color='success' startIcon={<MergeIcon />} fullWidth={true} onClick={() => {
       handleAllFilesMerge();
     }}>
       Create zip with separate files</Button>
@@ -159,8 +145,14 @@ function FilesList({ }: Props): JSX.Element {
           </List>
         </Grid>
       </Grid>
-      { filesState.files.length > 1 && renderMergeButton() }
-      {filesState.files.length > 1 && renderAllI18nFilesButton()}
+      <Grid container spacing={2}>
+        <Grid item md={12}>
+          {filesState.files.length > 1 && renderMergeButton()}
+        </Grid>
+        <Grid item md={12}>
+          {filesState.files.length > 1 && renderAllI18nFilesButton()}
+        </Grid>
+      </Grid>
     </>
   )
 }
