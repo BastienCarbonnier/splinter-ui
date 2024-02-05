@@ -1,9 +1,25 @@
 import saveAs from 'file-saver';
 import JSZip from 'jszip';
 import { FILE_EXTENSION_JSON } from '../constants/file.constant';
-import { BRANDS } from '../models/enum/brand.enum';
+import { BRANDS, BrandEnum } from '../models/enum/brand.enum';
 import { LANGUAGES } from '../models/enum/language.enum';
-import { PROVINCES, ProvinceToBackendValue } from '../models/enum/province.enum';
+import { PROVINCES, ProvinceEnum } from '../models/enum/province.enum';
+
+interface PostResponseAllFiles {
+  en?: IJsonFile
+  fr?: IJsonFile
+  brands?: Record<BrandEnum, BrandFiles>
+}
+
+interface BrandFiles {
+  en?: IJsonFile
+  fr?: IJsonFile
+  provinces?: Record<ProvinceEnum, ProvinceFiles>
+}
+interface ProvinceFiles {
+  en?: IJsonFile
+  fr?: IJsonFile
+}
 
 export const exportData = (file: IJsonFile | null) => {
   if (file) {
@@ -30,7 +46,7 @@ export const stringifyJson = (file: IJsonFile | null): string => {
   return JSON.stringify(file, null, 4);
 }
 
-export const createZipFilesForAllBrands = async (allFilesResult: any) => {
+export const createZipFilesForAllBrands = async (allFilesResult: PostResponseAllFiles) => {
   console.log('handle files merge')
   const zip = new JSZip();
   const downloadZipName = 'i18n';
@@ -38,18 +54,19 @@ export const createZipFilesForAllBrands = async (allFilesResult: any) => {
 
   console.log(allFilesResult)
   LANGUAGES.forEach(async (lang) => {
-    const file = allFilesResult[lang].json;
+    const file = allFilesResult?.[lang]?.json;
     if (file) {
       zipFolder?.file(`${lang}${FILE_EXTENSION_JSON}`, convertFileToBlob(file), { base64: true });
     }
   });
+
   BRANDS.forEach(async (brand) => {
     const brandFolder = zipFolder?.folder(brand.toLowerCase());
-    const filesByBrand = allFilesResult.brands[brand.toUpperCase()];
+    const filesByBrand = allFilesResult?.brands?.[brand];
 
     LANGUAGES.forEach(async (lang) => {
       if (filesByBrand && filesByBrand[lang]) {
-        const file = filesByBrand[lang].json;
+        const file = filesByBrand?.[lang]?.json;
         if (file) {
           brandFolder?.file(`${lang}${FILE_EXTENSION_JSON}`, convertFileToBlob(file), { base64: true });
         }
@@ -57,8 +74,7 @@ export const createZipFilesForAllBrands = async (allFilesResult: any) => {
     });
 
     PROVINCES.forEach(async (province) => {
-      const provinceBackendValue = ProvinceToBackendValue[province];
-      const filesByProvince = filesByBrand?.provinces?.[provinceBackendValue];
+      const filesByProvince = filesByBrand?.provinces?.[province];
       if (filesByProvince) {
         const provinceFolder = brandFolder?.folder(province);
         LANGUAGES.forEach(async (lang) => {

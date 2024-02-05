@@ -1,9 +1,9 @@
 export enum BrandEnum {
-  SCOTIA = "scotia",
-  BNC= "bnc",
-  BELAIR = "belair",
-  SERVUS = "servus",
-  INTACT = "intact"
+  SCOTIA = "SCOTIA",
+  BNC= "BNC",
+  BELAIR = "BELAIR",
+  SERVUS = "SERVUS",
+  INTACT = "INTACT"
 }
 
 export const BRANDS: BrandEnum[] = [
