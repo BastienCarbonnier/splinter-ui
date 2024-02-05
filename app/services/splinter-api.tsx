@@ -1,37 +1,24 @@
 import axios from 'axios'
 
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Content-Type": "application/json",
+};
+
+const baseUrl = `${process.env.NEXT_PUBLIC_SPLINTER_API_URL}/files`
+
 export const mergeFiles = async (files: IJsonFile[]): Promise<any> => {
-  return await axios.post(`${process.env.NEXT_PUBLIC_SPLINTER_API_URL}/file`, { files }, {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json",
-    }
-  });
+  return await axios.post(`${process.env.NEXT_PUBLIC_SPLINTER_API_URL}/file`, { files }, { headers });
 }
 
 export const mergeFilesAndRemoveCommonKeys = async (files: IJsonFile[]): Promise<any> => {
-  return await axios.post(`${process.env.NEXT_PUBLIC_SPLINTER_API_URL}/files`, { files }, {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json",
-    }
-  });
+  return await axios.post(baseUrl, { files }, { headers });
 }
 
-export const mergeFilesAndRemoveCommonKeysAllFiles = async (files: IJsonFile[]): Promise<any> => {
-  return await axios.post(`${process.env.NEXT_PUBLIC_SPLINTER_API_URL}/files/all-files`, { files }, {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json",
-    }
-  });
+export const mergeFilesAndRemoveCommonKeysAllBrandFiles = async (files: IJsonFile[]): Promise<any> => {
+  return await axios.post(`${baseUrl}/all-brand-files`, { files }, { headers });
 }
 
 export const validateFiles = async (files: IJsonFile[], referenceFile: IJsonFile): Promise<any> => {
-  return await axios.post(`${process.env.NEXT_PUBLIC_SPLINTER_API_URL}/files/validation`, { files, referenceFile }, {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json",
-    }
-  });
+  return await axios.post(`${baseUrl}/validation`, { files, referenceFile }, { headers });
 }

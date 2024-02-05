@@ -3,7 +3,7 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import DownloadIcon from '@mui/icons-material/Download';
 import FileDownloader from '../file/file-downloader';
 import FileModalPreview from '../file/file-modal-preview';
-import FilesDownloader from '../file/files-downloader';
+import FilesDownloader from './files-downloader';
 import { exportData } from '@/app/utils/file.utils';
 
 interface Props {

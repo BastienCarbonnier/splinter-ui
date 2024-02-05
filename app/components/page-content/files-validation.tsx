@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import FileUploaderV2 from './file-uploader-v2';
 import { Alert, AlertColor, Button, Grid, Typography } from '@mui/material';
 
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
-import FilesListDisplayV2 from './files-list-display-v2';
+import FilesList from '../files/files-list';
 import { useAppDispatch } from '@/app/hooks';
 import { add, clearFiles, deleteFile, selectFiles } from '@/app/store/files-reducer';
 import { clearMergedFile, selectMergedFile, setMergedFile } from '@/app/store/merged-file-reducer';
 import { useSelector } from 'react-redux';
 import { validateFiles } from '@/app/services/splinter-api';
 import DeleteIcon from '@mui/icons-material/Delete';
+import FileUploader from '../file/file-uploader';
 
 interface Props {
 }
@@ -95,17 +95,17 @@ function FileValidation({ }: Props): JSX.Element {
           <Typography variant="h5" marginBottom='1em' marginTop='1em'>
             Reference file
           </Typography>
-          <FileUploaderV2 handleUploadedFile={handleReferenceFile} 
+          <FileUploader handleUploadedFile={handleReferenceFile} 
                           buttonText='Upload Reference file'
-                          allowMultipleFile={false}></FileUploaderV2>
-          {mergedFileState.mergedFile && <FilesListDisplayV2 files={[mergedFileState.mergedFile]} deletePossible={false}></FilesListDisplayV2>}
+                          allowMultipleFile={false}></FileUploader>
+          {mergedFileState.mergedFile && <FilesList files={[mergedFileState.mergedFile]} deletePossible={false}></FilesList>}
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography variant="h5" marginBottom='1em' marginTop='1em'>
             Files to verify
           </Typography>
-          <FileUploaderV2 handleUploadedFile={handleFilesToVerify}></FileUploaderV2>
-          <FilesListDisplayV2 files={filesState.files} handleFileDelete={handleFileDelete}></FilesListDisplayV2>
+          <FileUploader handleUploadedFile={handleFilesToVerify}></FileUploader>
+          <FilesList files={filesState.files} handleFileDelete={handleFileDelete}></FilesList>
         </Grid>
       </Grid>
   </>

@@ -1,6 +1,5 @@
-import { Box, Button, Grid, Input, Typography } from '@mui/material';
-import DownloadIcon from '@mui/icons-material/Download';
-import { useState } from 'react';
+import { stringifyJson } from '@/app/utils/file.utils';
+import { Box, Typography } from '@mui/material';
 
 interface Props {
   title: string
@@ -14,7 +13,7 @@ function FileDisplayJson({ file, title }: Props): JSX.Element {
         {title}
       </Typography>
       <Box component="pre" sx={{ overflow: 'auto' }}>
-        {JSON.stringify(file, null, 2)}
+        {stringifyJson(file)}
       </Box>
     </>
   )

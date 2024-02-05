@@ -1,5 +1,5 @@
 "use client"
-import { AppBar, Box, Button, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography, createTheme } from '@mui/material';
+import { AppBar, Box, Button, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import React from 'react';
@@ -11,7 +11,7 @@ export default function Header() {
   const navItems = [
     {
       title: 'File Merger',
-      link: '/'
+      link: '/merger'
     },
     {
       title: 'Validation Tool',

@@ -7,6 +7,7 @@ import { useAppSelector } from '@/app/hooks';
 import { selectUpdatedFiles } from '@/app/store/files-reducer';
 import { selectMergedFile } from '@/app/store/merged-file-reducer';
 import { convertFileToBlob } from '@/app/utils/file.utils';
+import { FILE_EXTENSION_ZIP } from '@/app/constants/file.constant';
 
 interface Props {
   files: IJsonFile[]
@@ -15,7 +16,6 @@ interface Props {
 
 function FilesDownloader({ files, mergedFile }: Props): JSX.Element {
   const [downloadZipName, setDownloadZipName] = useState('all_updated_files');
-  const fileExtension = '.zip';
 
   const exportData = () => {
     const zip = new JSZip();
@@ -31,7 +31,7 @@ function FilesDownloader({ files, mergedFile }: Props): JSX.Element {
     })
 
     zip.generateAsync({ type: "blob" }).then(function (content) {
-      saveAs(content, `${downloadZipName}${fileExtension}`);
+      saveAs(content, `${downloadZipName}${FILE_EXTENSION_ZIP}`);
     });
   };
 
@@ -40,7 +40,7 @@ function FilesDownloader({ files, mergedFile }: Props): JSX.Element {
       <Grid container spacing={2} marginBottom='3rem'>
         <Grid item xs={6}>
           <Input value={downloadZipName} fullWidth={true} endAdornment={<InputAdornment disableTypography position="end">
-            {fileExtension}</InputAdornment>} onChange={(event) => setDownloadZipName(event.target.value)} />
+            {FILE_EXTENSION_ZIP}</InputAdornment>} onChange={(event) => setDownloadZipName(event.target.value)} />
         </Grid>
         <Grid item xs={6}>
           <Button component="label" variant="contained" fullWidth={true} startIcon={<DownloadIcon />} onClick={() => {

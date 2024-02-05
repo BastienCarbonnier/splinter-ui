@@ -1,12 +1,13 @@
 import { Button } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
-import { useAppDispatch } from '@/app/hooks';
-import { add } from '@/app/store/files-reducer';
-import { clearMergedFile } from '@/app/store/merged-file-reducer';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
+  handleUploadedFile: (file: IJsonFile) => void
+  buttonText?: string
+  disabledUpload ?: boolean
+  allowMultipleFile ?: boolean
 }
 
 const VisuallyHiddenInput = styled('input')({
@@ -21,8 +22,7 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-function FileUploader({ }: Props): JSX.Element {
-  const dispatch = useAppDispatch();
+function FileUploader({ handleUploadedFile, buttonText = 'Upload file(s)', disabledUpload = false, allowMultipleFile = true }: Props): JSX.Element {
 
   function handleOnChange(e: React.FormEvent<HTMLInputElement>) {
     const target = e.target as HTMLInputElement & {
@@ -42,8 +42,8 @@ function FileUploader({ }: Props): JSX.Element {
             name: file.name,
             json: JSON.parse(jsonText.toString())
           };
-          dispatch(clearMergedFile())
-          dispatch(add(jsonFile))
+
+          handleUploadedFile(jsonFile);
         }
         target.value = '';
       };
@@ -52,9 +52,9 @@ function FileUploader({ }: Props): JSX.Element {
     });
   }
   return (
-    <Button component="label" variant="contained" startIcon={<CloudUploadIcon />} fullWidth={true}>
-      Upload file(s)
-      <VisuallyHiddenInput type="file" id="jsonFile" name="jsonFile" onChange={(event) => handleOnChange(event)} accept="application/json" multiple/>
+    <Button component="label" variant="contained" startIcon={<CloudUploadIcon />} fullWidth={true} disabled={disabledUpload}>
+      {buttonText}
+      <VisuallyHiddenInput type="file" id="jsonFile" name="jsonFile" onChange={(event) => handleOnChange(event)} accept="application/json" multiple={allowMultipleFile}/>
     </Button>
   )
 }

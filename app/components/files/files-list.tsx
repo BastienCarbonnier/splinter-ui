@@ -11,12 +11,13 @@ interface Props {
   deletePossible?: boolean
 }
 
-function FilesListDisplayV2({ files, handleFileDelete, deletePossible = true }: Props): JSX.Element {
+function FilesList({ files, handleFileDelete, deletePossible = true }: Props): JSX.Element {
   const handleDelete = (file: IJsonFile) => {
     handleFileDelete?.(file)
   }
 
   return (
+    <>
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <List sx={{ width: '100%' }}>
@@ -62,7 +63,8 @@ function FilesListDisplayV2({ files, handleFileDelete, deletePossible = true }: 
         </List>
       </Grid>
     </Grid>
+    </>
   )
 }
 
-export default FilesListDisplayV2;
+export default FilesList;
