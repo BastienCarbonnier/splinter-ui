@@ -3,14 +3,14 @@ import { Alert, AlertColor, Button, Grid, Typography } from '@mui/material';
 
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
-import FilesList from '../files/files-list';
+import FilesList from '../components/files/files-list';
 import { useAppDispatch } from '@/app/hooks';
 import { add, clearFiles, deleteFile, selectFiles } from '@/app/store/files-reducer';
 import { clearMergedFile, selectMergedFile, setMergedFile } from '@/app/store/merged-file-reducer';
 import { useSelector } from 'react-redux';
 import { validateFiles } from '@/app/services/splinter-api';
 import DeleteIcon from '@mui/icons-material/Delete';
-import FileUploader from '../file/file-uploader';
+import FileUploader from '../components/file/file-uploader';
 
 interface Props {
 }

@@ -2,7 +2,7 @@
 import { Container, CssBaseline, Grid, Link, ThemeProvider, Typography, createTheme } from '@mui/material';
 import { Provider } from 'react-redux';
 import { store } from '../store';
-import FileValidation from '../components/page-content/files-validation';
+import FileValidation from './files-validation';
 import Header from '../components/layout/header';
 
 const darkTheme = createTheme({

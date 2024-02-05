@@ -1,15 +1,15 @@
 "use client"
 import { Button, Divider, Grid, Stack } from '@mui/material';
-import FilesClearer from '../files/files-clearer';
-import FilesUpdatedList from '../files/files-updated-list';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { add, deleteFile, selectUpdatedFiles, setUpdatedFiles } from '../../store/files-reducer';
-import { selectMergedFile, setMergedFile } from '../../store/merged-file-reducer';
-import FilesList from '../files/files-list';
-import { mergeFilesAndRemoveCommonKeys, mergeFilesAndRemoveCommonKeysAllBrandFiles } from '../../services/splinter-api';
-import { createZipFilesForAllBrands } from '../../utils/file.utils';
+import FilesClearer from '../components/files/files-clearer';
+import FilesUpdatedList from '../components/files/files-updated-list';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { add, deleteFile, selectUpdatedFiles, setUpdatedFiles } from '../store/files-reducer';
+import { selectMergedFile, setMergedFile } from '../store/merged-file-reducer';
+import FilesList from '../components/files/files-list';
+import { mergeFilesAndRemoveCommonKeys, mergeFilesAndRemoveCommonKeysAllBrandFiles } from '../services/splinter-api';
+import { createZipFilesForAllBrands } from '../utils/file.utils';
 import MergeIcon from '@mui/icons-material/Merge';
-import FileUploader from '../file/file-uploader';
+import FileUploader from '../components/file/file-uploader';
 
 export default function FilesMerger() {
   const dispatch = useAppDispatch();

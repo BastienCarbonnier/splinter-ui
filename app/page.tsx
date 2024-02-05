@@ -9,6 +9,7 @@ import React from 'react';
 import Header from './components/layout/header';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 const darkTheme = createTheme({
   palette: {
@@ -18,10 +19,7 @@ const darkTheme = createTheme({
 
 export default function Home() {
   const { push } = useRouter();
-
-  useEffect(() => {
-    push('/merger');
-  }, []);
+  redirect('/merger');
   
   return (
     <ThemeProvider theme={darkTheme}>

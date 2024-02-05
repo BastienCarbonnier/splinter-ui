@@ -3,7 +3,7 @@ import { Container, CssBaseline, Grid, Link, ThemeProvider, Typography, createTh
 import { Provider } from 'react-redux';
 import { store } from '../store';
 import Header from '../components/layout/header';
-import FilesMerger from '../components/page-content/files-merger';
+import FilesMerger from './files-merger';
 
 const darkTheme = createTheme({
   palette: {
