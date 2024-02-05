@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
-import { useAppDispatch } from '@/app/hooks';
-import { clearFiles } from '@/app/store/files-reducer';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { clearFiles, selectFiles } from '@/app/store/files-reducer';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { clearMergedFile } from '@/app/store/merged-file-reducer';
 
@@ -9,6 +9,7 @@ interface Props {
 
 function FilesClearer({ }: Props): JSX.Element {
   const dispatch = useAppDispatch();
+  const filesState = useAppSelector(selectFiles);
 
   function handleOnClick() {
     dispatch(clearFiles());
@@ -16,7 +17,7 @@ function FilesClearer({ }: Props): JSX.Element {
   }
   return (
     <>
-      <Button component="label" variant="contained" color='error' startIcon={<DeleteIcon />} fullWidth={true} onClick={() => {
+      <Button component="label" variant="contained" color='error' startIcon={<DeleteIcon />} fullWidth={true} disabled={filesState.files.length == 0} onClick={() => {
         handleOnClick()
       }}>Clear files</Button>
     </>

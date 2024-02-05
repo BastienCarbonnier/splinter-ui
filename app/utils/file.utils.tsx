@@ -100,7 +100,6 @@ export const createZipFilesForAllBrands = async (allFilesResult: PostResponseAll
     */
     PROVINCES.forEach(async (province) => {
       const filesByProvince = filesByBrand?.provinces?.[ProvinceToBackendValue[province]];
-      console.log(province)
       if (filesByProvince) {
         const provinceFolder = brandFolder?.folder(province);
         LANGUAGES.forEach(async (lang) => {
