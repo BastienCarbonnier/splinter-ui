@@ -16,7 +16,7 @@ function FilesClearer({ }: Props): JSX.Element {
   }
   return (
     <>
-      <Button component="label" variant="contained" startIcon={<DeleteIcon />} fullWidth={true} onClick={() => {
+      <Button component="label" variant="contained" color='error' startIcon={<DeleteIcon />} fullWidth={true} onClick={() => {
         handleOnClick()
       }}>Clear files</Button>
     </>

@@ -1,7 +1,7 @@
 "use client"
-import { Button, Divider, Grid, Stack } from '@mui/material';
+import { Button, Divider, Grid, Stack, Typography } from '@mui/material';
 import FilesClearer from '../components/files/files-clearer';
-import FilesUpdatedList from '../components/files/files-updated-list';
+import FilesUpdated from '../components/files/files-updated';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { add, deleteFile, selectUpdatedFiles, setUpdatedFiles } from '../store/files-reducer';
 import { selectMergedFile, setMergedFile } from '../store/merged-file-reducer';
@@ -63,6 +63,9 @@ export default function FilesMerger() {
     <>
       <Grid container columnSpacing={10}>
         <Grid item md={6} xs={12}>
+          <Typography variant="h4" marginBottom='1.5em'>
+            Files uploader
+          </Typography>
           <Stack
             width='100%'
             direction="row"
@@ -76,7 +79,7 @@ export default function FilesMerger() {
           <FilesList files={filesState.files} handleFileDelete={handleFileDelete}></FilesList>
         </Grid>
         <Grid item md={6} xs={12}>
-          <FilesUpdatedList files={filesState.updatedFiles} mergedFile={mergedFileState.mergedFile}></FilesUpdatedList>
+          { mergedFileState.mergedFile && <FilesUpdated files={filesState.updatedFiles} mergedFile={mergedFileState.mergedFile}></FilesUpdated>}
         </Grid>
       </Grid>
 
