@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { store } from '../store';
 import Header from '../components/layout/header';
 import FilesMerger from './files-merger';
+import Loader from '../components/layout/loader';
 
 const darkTheme = createTheme({
   palette: {
@@ -49,6 +50,7 @@ export default function Merger() {
   return (
     <ThemeProvider theme={darkTheme}>
       <Provider store={store}>
+        <Loader></Loader>
         <Header></Header>
         <Container>
           <CssBaseline />

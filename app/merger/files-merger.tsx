@@ -10,6 +10,8 @@ import { mergeFilesAndRemoveCommonKeys, mergeFilesAndRemoveCommonKeysAllBrandFil
 import { createZipFilesForAllBrands } from '../utils/file.utils';
 import MergeIcon from '@mui/icons-material/Merge';
 import FileUploader from '../components/file/file-uploader';
+import { setIsLoading } from '../store/loader-reducer';
+import Loader from '../components/layout/loader';
 
 export default function FilesMerger() {
   const dispatch = useAppDispatch();
@@ -37,10 +39,13 @@ export default function FilesMerger() {
 
   const handleAllFilesMerge = async () => {
     try {
-      const res = await mergeFilesAndRemoveCommonKeysAllBrandFiles(filesState.files)
+      dispatch(setIsLoading(true))
+      const res = await mergeFilesAndRemoveCommonKeysAllBrandFiles(filesState.files);
+      dispatch(setIsLoading(false))
       console.log(res.data)
       createZipFilesForAllBrands(res.data);
     } catch (err) {
+      dispatch(setIsLoading(false))
       console.log(err);
     }
   }
@@ -53,10 +58,13 @@ export default function FilesMerger() {
   );
 
   const renderAllI18nFilesButton = (): React.ReactNode => (
-    <Button component="label" variant="contained" color='success' startIcon={<MergeIcon />} fullWidth={true} onClick={() => {
-      handleAllFilesMerge();
-    }}>
-      Create zip with separate files</Button>
+    <>
+      <Button component="label" variant="contained" color='success' startIcon={<MergeIcon />} fullWidth={true} onClick={() => {
+        handleAllFilesMerge();
+      }}>
+        Create zip with separate files
+      </Button>
+    </>
   );
 
   return (
