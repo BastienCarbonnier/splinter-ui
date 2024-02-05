@@ -3,7 +3,7 @@ import JSZip from 'jszip';
 import { FILE_EXTENSION_JSON } from '../constants/file.constant';
 import { BRANDS, BrandEnum } from '../models/enum/brand.enum';
 import { LANGUAGES } from '../models/enum/language.enum';
-import { PROVINCES, ProvinceEnum } from '../models/enum/province.enum';
+import { PROVINCES, ProvinceEnum, ProvinceToBackendValue } from '../models/enum/province.enum';
 
 interface PostResponseAllFiles {
   en?: IJsonFile
@@ -14,7 +14,7 @@ interface PostResponseAllFiles {
 interface BrandFiles {
   en?: IJsonFile
   fr?: IJsonFile
-  provinces?: Record<ProvinceEnum, ProvinceFiles>
+  provinces?: Record<string, ProvinceFiles>
 }
 interface ProvinceFiles {
   en?: IJsonFile
@@ -74,7 +74,8 @@ export const createZipFilesForAllBrands = async (allFilesResult: PostResponseAll
     });
 
     PROVINCES.forEach(async (province) => {
-      const filesByProvince = filesByBrand?.provinces?.[province];
+      const filesByProvince = filesByBrand?.provinces?.[ProvinceToBackendValue[province]];
+      console.log(province)
       if (filesByProvince) {
         const provinceFolder = brandFolder?.folder(province);
         LANGUAGES.forEach(async (lang) => {
